@@ -8,7 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: kivy/buildozer:latest
+    container:
+      image: kivy/buildozer:latest
+      options: --user 1000
     steps:
       - uses: actions/checkout@v4
       - name: Build APK
