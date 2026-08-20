@@ -8,31 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    container: kivy/buildozer:latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Install system deps
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-17-jdk wget
-      - name: Install Android SDK and aidl
-        run: |
-          mkdir -p $HOME/android-sdk
-          cd $HOME/android-sdk
-          wget -q https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-          unzip -q commandlinetools-linux-9477386_latest.zip
-          rm commandlinetools-linux-9477386_latest.zip
-          mkdir -p cmdline-tools/latest
-          mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
-          yes | cmdline-tools/latest/bin/sdkmanager --licenses > /dev/null
-          cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.0" "platforms;android-33" > /dev/null
-          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
-          echo "$HOME/android-sdk/build-tools/33.0.0" >> $GITHUB_PATH
-      - name: Install Buildozer
-        run: |
-          pip install buildozer cython
       - name: Build APK
         run: |
           buildozer android debug
