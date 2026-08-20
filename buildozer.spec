@@ -1,7 +1,7 @@
 [app]
-title = Breadix Client
-package.name = breadixclient
-package.domain = org.swillway
+title = Trade Client
+package.name = tradeclient
+package.domain = org.tradeclient
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas
 version = 1.1.5

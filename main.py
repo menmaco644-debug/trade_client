@@ -26,7 +26,7 @@ MDScreen:
         spacing: "8dp"
 
         MDTopAppBar:
-            title: "BREADIX CLIENT"
+            title: "TRADE CLIENT"
             subtitle: f"Minecraft {MINECRAFT_VERSION} | Mod Menu"
             elevation: 8
             md_bg_color: 0.06, 0.06, 0.10, 1
