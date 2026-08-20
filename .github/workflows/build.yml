@@ -16,7 +16,7 @@ jobs:
       - name: Install system deps
         run: |
           sudo apt-get update
-          sudo apt-get install -y openjdk-17-jdk autoconf automake libtool pkg-config libltdl-dev m4
+          sudo apt-get install -y openjdk-17-jdk autoconf automake libtool pkg-config libltdl-dev m4 ccache
       - name: Install Python deps
         run: |
           pip install python-for-android cython
@@ -37,7 +37,7 @@ jobs:
           echo "ANDROID_NDK_HOME=/opt/android-sdk/ndk/25.2.9519653" >> $GITHUB_ENV
       - name: Build APK
         run: |
-          p4a apk --private . --package=org.trade.client --name "Trade Client" --version 1.1.5 --bootstrap=sdl2 --requirements=python3,kivy,kivymd --arch=arm64-v8a --release
+          p4a apk --private . --package=org.trade.client --name "Trade Client" --version 1.1.5 --bootstrap=sdl2 --requirements=python3,kivy,kivymd --arch=arm64-v8a --release --android-api 33 --ndk-api 24
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
