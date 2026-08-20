@@ -18,11 +18,24 @@ jobs:
           pip install buildozer cython
           sudo apt-get update
           sudo apt-get install -y git zip unzip openjdk-17-jdk
+      - name: Install Android SDK
+        run: |
+          mkdir -p $HOME/android-sdk
+          cd $HOME/android-sdk
+          wget https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip commandlinetools-linux-9477386_latest.zip
+          rm commandlinetools-linux-9477386_latest.zip
+          mkdir -p cmdline-tools/latest
+          mv cmdline-tools/* cmdline-tools/latest/ 2>/dev/null || true
+          yes | cmdline-tools/latest/bin/sdkmanager --licenses
+          cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.0" "platforms;android-33"
+          echo "ANDROID_HOME=$HOME/android-sdk" >> $GITHUB_ENV
+          echo "$HOME/android-sdk/build-tools/33.0.0" >> $GITHUB_PATH
       - name: Build APK
         run: |
           buildozer android debug
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: breadix-client-apk
+          name: trade-client-apk
           path: bin/*.apk
